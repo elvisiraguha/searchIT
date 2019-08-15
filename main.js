@@ -14,6 +14,7 @@ const searchIt = () => {
   let output = '';
   if (input.length !== 0) {
     match.forEach(elt => {
+
       let population = (function() {
         let temp = elt.population.split('');
         const len = temp.length;
@@ -23,14 +24,24 @@ const searchIt = () => {
         }
         return temp.join('');
       }());
+
+      let matchCity = (function(el) {
+        let match = el.replace(input, `<span class='match'>${input}</span>`)
+        return match;
+      }(elt.city));
+
+      let matchState = (function(el) {
+        let match = el.replace(input, `<span class='match'>${input}</span>`)
+        return match;
+      }(elt.state));
+
       let growth = elt.growth_from_2000_to_2013.split('%')[0];
-      if (growth < 0) {
-        output += `<div>${elt.city} :: ${elt.state} :: ${population} :: <span class='red'>${elt.growth_from_2000_to_2013}</span> </div>`;
-      }
-      else {
-        output += `<div>${elt.city} :: ${elt.state} :: ${population} :: <span class='green'>${elt.growth_from_2000_to_2013}</span> </div>`;
-      }
-      if(input.length > 5) console.log(population)
+      let growthToDisplay;
+
+      if (growth < 0) growthToDisplay = `<span class='red'>${elt.growth_from_2000_to_2013}</span>`;
+      else growthToDisplay = `<span class='green'>${elt.growth_from_2000_to_2013}</span>`;
+
+      output += `<div>${matchCity} :: ${matchState} :: ${population} :: ${growthToDisplay} </div>`;
     });
   }
   document.querySelector('#result').innerHTML = output;
