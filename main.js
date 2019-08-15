@@ -14,14 +14,23 @@ const searchIt = () => {
   let output = '';
   if (input.length !== 0) {
     match.forEach(elt => {
-      let population = elt.population;
+      let population = (function() {
+        let temp = elt.population.split('');
+        const len = temp.length;
+
+        for(let i = 3; i < len; i+=3) {
+          temp.splice(len-i, 0, ',');
+        }
+        return temp.join('');
+      }());
       let growth = elt.growth_from_2000_to_2013.split('%')[0];
       if (growth < 0) {
-        output += `<div>${elt.city}, ${elt.state}, ${elt.population}, <span class='red'>${elt.growth_from_2000_to_2013}</span> </div>`;
+        output += `<div>${elt.city} :: ${elt.state} :: ${population} :: <span class='red'>${elt.growth_from_2000_to_2013}</span> </div>`;
       }
       else {
-        output += `<div>${elt.city}, ${elt.state}, ${elt.population}, <span class='green'>${elt.growth_from_2000_to_2013}</span> </div>`;
+        output += `<div>${elt.city} :: ${elt.state} :: ${population} :: <span class='green'>${elt.growth_from_2000_to_2013}</span> </div>`;
       }
+      if(input.length > 5) console.log(population)
     });
   }
   document.querySelector('#result').innerHTML = output;

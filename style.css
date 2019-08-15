@@ -1,17 +1,38 @@
+* {
+  /* background-image: url('./architecture-buildings-city-290595.jpg'); */
+  /* background-color: rgb(178, 243, 221) */
+}
 #titleContainer {
   width: 80vw;
   display: flex;
-  position: relative;
+  position: fixed;
   top: 40px;
   left: 40px;
+  opacity: 1;
+}
+#header {
+  color: white;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(31, 28, 28);
+  width: 100vw;
+  height: 110px;
+  position: fixed;
 }
 header {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2em;
+  font-size: 2.5em;
 }
 #inputBox {
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 12px;
+  border: solid;
   font-size: 2.5em;
   margin: 0px 20px;
+  flex-basis: 30vw;
+}
+#it {
+  color: red;
 }
 #inputBox::placeholder {
   color: lightgray;
@@ -25,7 +46,9 @@ header {
   justify-content: center;
 }
 #result {
+  font-family: 'Quicksand', sans-serif;
   font-size: 1.8em;
+  z-index: -1;
 }
 #result div{
   margin: 10px 0px;
