@@ -9,7 +9,7 @@ const loader = () => {
 }
 
 const searchIt = () => {
-  const input = document.querySelector('#inputBox').value;
+  const input = document.querySelector('#inputBox').value.replace(/\s{1,}/, ' ');
   const match = response.filter( obj => obj.city.startsWith(input) || obj.state.startsWith(input));
   let output = '';
   if (input.length !== 0) {
