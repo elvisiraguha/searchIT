@@ -1,0 +1,41 @@
+#titleContainer {
+  width: 80vw;
+  display: flex;
+  position: relative;
+  top: 40px;
+  left: 40px;
+}
+header {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+}
+#inputBox {
+  font-size: 2.5em;
+  margin: 0px 20px;
+}
+#inputBox::placeholder {
+  color: lightgray;
+}
+#resultContainer{
+  width: 70vw;
+  position: relative;
+  top: 100px;
+  left: 30px;
+  display: flex;
+  justify-content: center;
+}
+#result {
+  font-size: 1.8em;
+}
+#result div{
+  margin: 10px 0px;
+}
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+.match {
+  background: rgb(180, 230, 80);
+}

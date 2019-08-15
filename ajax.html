@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ajax</title>
+</head>
+<body>
+  <button id="button">get the request</button>
+  <div id="text"></div>
+  <script>
+    let data;
+    let api = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
+    const loader = () => {
+      fetch(api)
+      .then(res => res.json())
+      .then(res => data = res)
+    };
+    document.querySelector('#button').addEventListener('click', () => {
+      console.log(data[0]);
+    });
+    window.addEventListener('load', loader);
+
+  </script>
+</body>
+</html>
