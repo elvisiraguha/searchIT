@@ -1,10 +1,12 @@
 @media screen and (max-width: 660px) {
   #resultContainer{
-    top: 110px !important;
+    top: 110px;
   }
   #inputBox {
-    width: 90vw;
-    margin: 0px !important;
+    width: 80vw;
+  }
+  .modalContent {
+    width: 90% !important;
   }
 }
 header {
@@ -17,6 +19,7 @@ header {
   display: flex;
   background: black;
   flex-flow: wrap;
+  z-index: 1;
 }
 
 #searchit {
@@ -47,11 +50,11 @@ header {
   display: flex;
   justify-content: center;
 }
+
 #result {
   width: 55vw;
   font-family: 'Quicksand', sans-serif;
   font-size: 1.8em;
-  z-index: -1;
 }
 #result div{
   margin: 10px 0px;
@@ -65,4 +68,47 @@ header {
 }
 .match {
   background: rgba(187, 245, 165);
+}
+
+.modalContainer {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.363);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  overflow: auto;
+}
+.modalContent {
+  background: rgb(255, 255, 255);
+  margin: 10% auto;
+  width: 45%;
+  height: 300px;
+  border-radius: 8px;
+  border: 2px solid rgb(214, 19, 19);
+  z-index: 3;
+}
+#closeModal {
+  color: rgb(160, 156, 156);
+  float: right;
+  padding-right: 6px;
+  font-size: 1.6em;
+  font-family: 'Quicksand', sans-serif;
+}
+#closeModal:hover, #closeModal:focus{
+  color: black;
+  cursor: pointer;
+  font-size: 2em;
+}
+#modalResults {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.6em;
+  clear: both;
+  padding-left: 10px;
+}
+
+.props {
+  font-weight: bold;
 }
