@@ -1,54 +1,61 @@
-#titleContainer {
-  width: 80vw;
-  display: flex;
-  position: fixed;
-  top: 40px;
-  left: 40px;
-  opacity: 1;
+@media screen and (max-width: 660px) {
+  #resultContainer{
+    top: 110px !important;
+  }
+  #inputBox {
+    width: 90vw;
+    margin: 0px !important;
+  }
 }
 header {
+  padding: 10px;
   color: white;
+  width: 100vw;
+  position: fixed;
   top: 0px;
   left: 0px;
-  background-color: rgb(31, 28, 28);
-  width: 100vw;
-  height: 110px;
-  position: fixed;
+  display: flex;
+  background: black;
+  flex-flow: wrap;
 }
+
 #searchit {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.5em;
+  font-size: 2.3em;
+  font-weight: bolder;
 }
 #inputBox {
   font-family: 'Quicksand', sans-serif;
-  border-radius: 12px;
+  border-radius: 6px;
   border: solid;
-  padding-left: 10px;
+  padding-left: 6px;
   font-size: 2.5em;
   margin: 0px 20px;
-  flex-basis: 30vw;
 }
+
 #it {
-  color: red;
+  color: rgb(255, 0, 0);
 }
 #inputBox::placeholder {
   color: lightgray;
 }
 #resultContainer{
-  width: 70vw;
+  width: 80vw;
   position: relative;
-  top: 100px;
+  top: 70px;
   left: 30px;
   display: flex;
   justify-content: center;
 }
 #result {
+  width: 55vw;
   font-family: 'Quicksand', sans-serif;
   font-size: 1.8em;
   z-index: -1;
 }
 #result div{
   margin: 10px 0px;
+  background-color: rgba(211, 211, 211, 0.37)
 }
 .red {
   color: red;
