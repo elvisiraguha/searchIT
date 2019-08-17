@@ -10,39 +10,51 @@ const loader = () => {
 
 const searchIt = () => {
   const input = document.querySelector('#inputBox').value.replace(/\s{1,}/, ' ');
-  const match = response.filter( obj => obj.city.startsWith(input) || obj.state.startsWith(input));
+  const matchSearch = response.filter( obj => {
+
+    const city = obj.city.toLowerCase();
+    const state = obj.state.toLowerCase();
+
+    const inputRegex = new RegExp(input, 'i');
+
+    const lowerCity = obj.city.toLowerCase().match(inputRegex) ? obj.city.toLowerCase().match(inputRegex)[0] : null;
+    const lowerState = obj.state.toLowerCase().match(inputRegex) ? obj.state.toLowerCase().match(inputRegex)[0] : null;
+
+    if(city.startsWith(lowerCity) || state.startsWith(lowerState)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+    
+  });
   let output = '';
-  let matchCity, matchState, population, growthToDisplay;
+  let match, population, growthToDisplay;
   if (input.length !== 0) {
-    match.forEach(elt => {
+    matchSearch.forEach(elt => {
 
-      matchCity = function(el) {
-        let match = el.replace(input, `<span class='match'>${input}</span>`)
-        return match;
+      match = el => {
+        const inputRegex = new RegExp(input, 'i');
+        let matchInput = el.match(inputRegex) ? el.match(inputRegex)[0] : null;
+        return el.replace(matchInput, `<span class='match'>${matchInput}</span>`)
       };
 
-      matchState = function(el) {
-        let match = el.replace(input, `<span class='match'>${input}</span>`)
-        return match;
-      };
-      population = function(el) {
+      population = el => {
         let temp = el.split('');
         const len = temp.length;
-
         for(let i = 3; i < len; i+=3) {
           temp.splice(len-i, 0, ',');
         }
         return temp.join('');
       };
 
-
-      growthToDisplay = function (el) {
+      growthToDisplay = el => {
         let growth = el.split('%')[0];
         if (growth < 0) return `<span class='red'>${elt.growth_from_2000_to_2013}</span>`;
         else return `<span class='green'>${elt.growth_from_2000_to_2013}</span>`;
       };
 
-      output += `<div>${matchCity(elt.city)} :: ${matchState(elt.state)} :: ${population(elt.population)} :: ${growthToDisplay(elt.growth_from_2000_to_2013)} </div>`;
+      output += `<div>${match(elt.city)} :: ${match(elt.state)} :: ${population(elt.population)} :: ${growthToDisplay(elt.growth_from_2000_to_2013)} </div>`;
     });
   }
   document.querySelector('#result').innerHTML = output;
@@ -54,13 +66,13 @@ const searchIt = () => {
       let ourMatch = response.filter(val => val.city == content[0] && val.state == content[1])[0];
       let modalContent = '';
       modalContent += `
-        <div><span class='props'>City</span>: ${matchCity(ourMatch.city)}</div>
+        <div><span class='props'>City</span>: ${match(ourMatch.city)}</div>
         <div><span class='props'>Growth Rate</span>: ${growthToDisplay(ourMatch.growth_from_2000_to_2013)} </div>
         <div><span class='props'>Latitude</span>: ${ourMatch.latitude}</div>
         <div><span class='props'>Longitude</span>: ${ourMatch.longitude}</div>
         <div><span class='props'>Population</span>: ${population(ourMatch.population)}</div>
         <div><span class='props'>Rank</span>: ${ourMatch.rank}</div>
-        <div><span class='props'>State</span>: ${matchState(ourMatch.state)}</div>`;
+        <div><span class='props'>State</span>: ${match(ourMatch.state)}</div>`;
 
 
       document.querySelector("#modalResults").innerHTML = modalContent;
