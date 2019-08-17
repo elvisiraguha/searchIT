@@ -9,7 +9,8 @@ const loader = () => {
 }
 
 const searchIt = () => {
-  const input = document.querySelector('#inputBox').value.replace(/\s{1,}/, ' ');
+  const input = document.querySelector('#inputBox').value.trim().replace(/\s{1,}/, ' ');
+  
   const matchSearch = response.filter( obj => {
 
     const city = obj.city.toLowerCase();
@@ -80,6 +81,11 @@ const searchIt = () => {
       document.querySelector("#closeModal").addEventListener('click', () => {
         document.querySelector("#modalContainer").style.display = 'none'
       });
+      
+      window.addEventListener('keydown', (e) => {
+        e.keyCode == 27 ? document.querySelector("#modalContainer").style.display = 'none': null;
+      });
+
       window.addEventListener('click', (e) => {
         if(e.target.className == 'modalContainer') {
           document.querySelector("#modalContainer").style.display = 'none';
@@ -89,5 +95,12 @@ const searchIt = () => {
   });
 };
 
+const preventUnallowedKeys = event => {
+  const isAllowed = [8, 9, 16, 20, 32, 35, 36, 37, 39, 46, 189, 191, 222].some( key => key == event.keyCode);
+  const isString = event.keyCode >= 65 && event.keyCode <= 90
+  if(!isString && !isAllowed ) event.preventDefault();
+};
+
 window.addEventListener('load', loader);
 document.querySelector('#inputBox').addEventListener('keyup', searchIt);
+document.querySelector('#inputBox').addEventListener('keydown', preventUnallowedKeys);
