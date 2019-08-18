@@ -128,7 +128,6 @@ const searchIt = () => {
 
 // preventUnallowedKeys function
 const preventUnallowedKeys = event => {
-  
   //   this variable stores a Boolean, if key is allowed it stores true other wise false.
   //   allowed keys other than strings include [Backspace, Tab, Shift, Caps Lock, Space, End, Home, Arrow Keys, Delete] 
   const isAllowed = [8, 9, 16, 20, 32, 35, 36, 37, 39, 46, 123, 189, 191, 222].some( key => key == event.keyCode);
@@ -137,7 +136,11 @@ const preventUnallowedKeys = event => {
   const isString = event.keyCode >= 65 && event.keyCode <= 90;
   
   //   check if pressed key is not a string or it is not among allowed keys, then prevent the action.
-  if(!isString && !isAllowed ) event.preventDefault();
+  if(!isString && !isAllowed ) {
+    document.querySelector('#inputHint').style.display = 'block';
+    event.preventDefault();
+  }
+  else document.querySelector('#inputHint').style.display = 'none';
 };
 
 // listen for keyup and call searchIt function which will do the whole search functionalities
