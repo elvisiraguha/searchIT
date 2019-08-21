@@ -3,3 +3,4 @@ ajax.html
 res
 webpack.config.js
 .gitignore
+settings.json

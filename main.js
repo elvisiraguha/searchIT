@@ -37,22 +37,22 @@ const searchIt = () => {
   let output = '';
 
   //   functions to format output to be displayed
-  let match, population, growthToDisplay;
+  let matchToDisplay, populationToDisplay, growthToDisplay;
   
   if (input.length !== 0) {
 
-    //     format the output to highlight the match keyword.
     matchSearch.forEach(elt => {
 
-      match = el => {
-        const lowerinp = input.toLowerCase(), lowercity = el.toLowerCase();
+    //     format the output to highlight the match keyword.
+      matchToDisplay = el => {
+        const lowerInp = input.toLowerCase(), lowercity = el.toLowerCase();
         const inputRegex = new RegExp(input, 'i');
         let matchInput = el.match(inputRegex) ? el.match(inputRegex)[0] : null;
-        return lowercity.startsWith(lowerinp) ? el.replace(matchInput, `<span class='match'>${matchInput}</span>`) : el;
+        return lowercity.startsWith(lowerInp) ? el.replace(matchInput, `<span class='match'>${matchInput}</span>`) : el;
       };
 
     //     format the population to add a comma after three digits.
-      population = el => {
+      populationToDisplay = el => {
         let temp = el.split('');
         const len = temp.length;
         for(let i = 3; i < len; i+=3) {
@@ -69,7 +69,7 @@ const searchIt = () => {
       };
 
       // store all the formatted outputs into the output variable.
-      output += `<div>${match(elt.city)} :: ${match(elt.state)} :: ${population(elt.population)} :: ${growthToDisplay(elt.growth_from_2000_to_2013)} </div>`;
+      output += `<div>${matchToDisplay(elt.city)} &par; ${matchToDisplay(elt.state)} &par; ${populationToDisplay(elt.population)} &par; ${growthToDisplay(elt.growth_from_2000_to_2013)} </div>`;
     });
   }
 
@@ -88,7 +88,7 @@ const searchIt = () => {
       document.querySelector("#modalContainer").style.display = 'block';
 
       //  extract the content of the div.
-      let content = event.target.textContent.split(' :: ');
+      let content = event.target.textContent.split(' ∥ ');
 
       //  filter city which match the extracted content
       let ourMatch = response.filter(val => val.city == content[0] && val.state == content[1])[0];
@@ -99,7 +99,7 @@ const searchIt = () => {
         <div><span class='props'>Growth Rate</span>: ${growthToDisplay(ourMatch.growth_from_2000_to_2013)} </div>
         <div><span class='props'>Latitude</span>: ${ourMatch.latitude}</div>
         <div><span class='props'>Longitude</span>: ${ourMatch.longitude}</div>
-        <div><span class='props'>Population</span>: ${population(ourMatch.population)}</div>
+        <div><span class='props'>Population</span>: ${populationToDisplay(ourMatch.population)}</div>
         <div><span class='props'>Rank</span>: ${ourMatch.rank}</div>
         <div><span class='props'>State</span>: ${ourMatch.state}</div>`;
 
@@ -121,13 +121,14 @@ const searchIt = () => {
         if(e.target.className == 'modalContainer') {
           document.querySelector("#modalContainer").style.display = 'none';
         }
-      });
+      })
     });
   });
 };
 
 // preventUnallowedKeys function
 const preventUnallowedKeys = event => {
+  
   //   this variable stores a Boolean, if key is allowed it stores true other wise false.
   //   allowed keys other than strings include [Backspace, Tab, Shift, Caps Lock, Space, End, Home, Arrow Keys, Delete] 
   const isAllowed = [8, 9, 16, 20, 32, 35, 36, 37, 39, 46, 123, 189, 191, 222].some( key => key == event.keyCode);
@@ -135,12 +136,14 @@ const preventUnallowedKeys = event => {
   //   this variable stores a Boolean, if key is string it stores true other wise false.
   const isString = event.keyCode >= 65 && event.keyCode <= 90;
   
-  //   check if pressed key is not a string or it is not among allowed keys, then prevent the action.
+  //   check if pressed key is not a string or it is not among allowed keys, 
+  //   give the user a hint, then prevent the action.
   if(!isString && !isAllowed ) {
     document.querySelector('#inputHint').style.display = 'block';
     event.preventDefault();
   }
   else document.querySelector('#inputHint').style.display = 'none';
+
 };
 
 // listen for keyup and call searchIt function which will do the whole search functionalities
